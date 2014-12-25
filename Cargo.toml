@@ -1,0 +1,5 @@
+[package]
+
+name = "rusty_donna"
+version = "0.0.1"
+authors = ["Michael Dvorkin <mike@dvorkin.net>"]
