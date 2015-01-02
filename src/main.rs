@@ -22,4 +22,13 @@ fn main() {
     println!("{}.any() {}", zero, zero.any());
     println!("{}.empty() {}", nonzero, nonzero.empty());
     println!("{}.any() {}", nonzero, nonzero.any());
+    println!("move {}", Move::new(1,2));
+
+    let a = Bitmask(1);
+    let b = Bitmask(2);
+    let c: Bitmask = a | b;
+    println!("a | b = {}", c);
+    println!("a << 3 = {}", a << 3);
+    println!("1 = {}", Bitmask(1) != Bitmask(0));
+    println!("F = {}", Bitmask(0xFFFFFFFFFFFFFFFF));
 }
