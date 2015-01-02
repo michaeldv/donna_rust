@@ -6,8 +6,13 @@
 //  Copyright (c) 2014-2015 Michael Dvorkin. All rights reserved.
 
 extern crate rusty_donna;
-use rusty_donna::bitmask::Bitmask;
 
+#[cfg(not(test))]
+use rusty_donna::bitmask::Bitmask;
+#[cfg(not(test))]
+use rusty_donna::moves::Move;
+
+#[cfg(not(test))]
 fn main() {
     let zero = Bitmask(0);
     let nonzero = Bitmask(7);
