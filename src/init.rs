@@ -1,7 +1,12 @@
 // Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
 
+use data::{A1, H8};
+
 pub fn init() {
     fn init_masks() {
+        for sq in range(A1, H8) {
+            sq == sq;
+        }
         println!("init_masks...");
     }
 
