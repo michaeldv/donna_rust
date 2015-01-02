@@ -7,27 +7,27 @@
 extern crate rusty_donna;
 
 #[cfg(not(test))]
-use rusty_donna::bitmask::Bitmask;
+use rusty_donna::bitmask;
 #[cfg(not(test))]
-use rusty_donna::moves::Move;
+use rusty_donna::moves;
 
 #[cfg(not(test))]
 fn main() {
-    let zero = Bitmask(0);
-    let nonzero = Bitmask(7);
+    let zero = bitmask::Bitmask(0);
+    let nonzero = bitmask::Bitmask(7);
 
     println!("Hello, world!");
     println!("{}.empty() {}", zero, zero.empty());
     println!("{}.any() {}", zero, zero.any());
     println!("{}.empty() {}", nonzero, nonzero.empty());
     println!("{}.any() {}", nonzero, nonzero.any());
-    println!("move {}", Move::new(1,2));
+    println!("move {}", moves::Move::new(1,2));
 
-    let a = Bitmask(1);
-    let b = Bitmask(2);
-    let c: Bitmask = a | b;
+    let a = bitmask::Bitmask(1);
+    let b = bitmask::Bitmask(2);
+    let c: bitmask::Bitmask = a | b;
     println!("a | b = {}", c);
     println!("a << 3 = {}", a << 3);
-    println!("1 = {}", Bitmask(1) != Bitmask(0));
-    println!("F = {}", Bitmask(0xFFFFFFFFFFFFFFFF));
+    println!("1 = {}", bitmask::Bitmask(1) != bitmask::Bitmask(0));
+    println!("F = {}", bitmask::Bitmask(0xFFFFFFFFFFFFFFFF));
 }
