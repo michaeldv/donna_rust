@@ -103,3 +103,23 @@ impl Bitmask {
         (*self).0
     }
 }
+
+impl fmt::Show for Bitmask {
+    #[allow(unused_must_use)] // <-- To avoid try!(write!()) nonsense.
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "  a b c d e f g h  0x{:016X}", self.val());
+        for row in range(0u, 8u).rev() {
+            write!(f, "\n{}", from_digit(row + 1, 10).unwrap());
+            for col in range(0u, 8u) {
+                write!(f, " ");
+                let offset = (row << 3) + col;
+                if self.on(offset) {
+                    write!(f, "\u{2022}");
+                } else {
+                    write!(f, "\u{22C5}");
+                }
+            }
+        }
+        write!(f, "\n")
+    }
+}
