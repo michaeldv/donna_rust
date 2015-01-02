@@ -1,3 +1,5 @@
+// Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
+
 #[deriving(Eq, PartialEq, Copy, Show)]
 pub struct Move(pub u32);
 

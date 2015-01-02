@@ -1,4 +1,3 @@
-//
 //  main.rs
 //  Rusty Donna chess engine.
 //

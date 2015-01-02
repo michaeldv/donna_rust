@@ -1,3 +1,5 @@
+// Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
+
 extern crate rusty_donna;
 use rusty_donna::bitmask::Bitmask;
 
