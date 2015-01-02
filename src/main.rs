@@ -7,6 +7,8 @@
 extern crate rusty_donna;
 
 #[cfg(not(test))]
+use rusty_donna::init;
+#[cfg(not(test))]
 use rusty_donna::bitmask;
 #[cfg(not(test))]
 use rusty_donna::moves;
@@ -30,4 +32,6 @@ fn main() {
     println!("a << 3 = {}", a << 3);
     println!("1 = {}", bitmask::Bitmask(1) != bitmask::Bitmask(0));
     println!("F = {}", bitmask::Bitmask(0xFFFFFFFFFFFFFFFF));
+
+    init::init();
 }
