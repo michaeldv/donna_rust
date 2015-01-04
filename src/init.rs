@@ -1,15 +1,29 @@
 // Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
 
 use std::cmp::max;
+//use std::mem::zeroed; unsafe { zeroed() }
 use std::num::SignedInt;
+use bitmask::Bitmask;
 use utils::{row, col, coordinate};
 
 // Distance between two squares.
 static mut _distance: [[uint, ..64], ..64] = [[0, ..64], ..64];
+static mut _king_moves: [Bitmask, ..64] = [Bitmask(0), ..64];
+static mut _knight_moves: [Bitmask, ..64] = [Bitmask(0), ..64];
 
 #[inline(always)]
 pub fn distance(from: uint, to: uint) -> uint {
     unsafe { _distance[from][to] }
+}
+
+#[inline(always)]
+pub fn king_moves(square: uint) -> Bitmask {
+    unsafe { _king_moves[square] }
+}
+
+#[inline(always)]
+pub fn knight_moves(square: uint) -> Bitmask {
+    unsafe { _knight_moves[square] }
 }
 
 pub fn init() {
@@ -20,9 +34,25 @@ pub fn init() {
 
             for i in range(0, 64) {
                 let (r, c) = coordinate(i);
+                let absrow = ((r - row) as int).abs();
+                let abscol = ((c - col) as int).abs();
+
                 unsafe {
-                    _distance[sq][i] = max(((row - r) as int).abs(), ((col - c) as int).abs()) as uint;
+                    _distance[sq][i] = max(absrow, abscol) as uint;
                 }
+
+                if i == sq || ((i - sq) as int).abs() > 17 {
+                    continue; // No king or knight can reach that far.
+                }
+
+                if (absrow == 2 && abscol == 1) || (absrow == 1 && abscol == 2) {
+                    unsafe { _knight_moves[sq].set(i); }
+                }
+
+                if absrow <= 1 && abscol <= 1 {
+                    unsafe { _king_moves[sq].set(i); }
+                }
+
             }
         }
 
