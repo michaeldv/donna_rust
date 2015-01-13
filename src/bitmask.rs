@@ -6,7 +6,7 @@ use std::char::{from_digit};
 #[deriving(Eq, PartialEq, Copy)]
 pub struct Bitmask(pub u64); // <-- Newtype pattern.
 
-static DE_BRUIJN: [uint; 64] = [
+static DE_BRUIJN: [usize; 64] = [
      0, 47,  1, 56, 48, 27,  2, 60,
     57, 49, 41, 37, 28, 16,  3, 61,
     54, 58, 35, 52, 50, 42, 21, 44,
@@ -35,14 +35,14 @@ impl BitXor<Bitmask, Bitmask> for Bitmask {
     }
 }
 
-impl Shr<uint, Bitmask> for Bitmask {
-    fn shr(self, rhs: uint) -> Bitmask {
+impl Shr<usize, Bitmask> for Bitmask {
+    fn shr(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 >> rhs)
     }
 }
 
-impl Shl<uint, Bitmask> for Bitmask {
-    fn shl(self, rhs: uint) -> Bitmask {
+impl Shl<usize, Bitmask> for Bitmask {
+    fn shl(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 << rhs)
     }
 }
@@ -57,46 +57,46 @@ impl Bitmask {
     }
 
     // Returns number of bits set.
-    pub fn count(&self) -> uint {
+    pub fn count(&self) -> usize {
         let mut mask = self.val();
         mask -= (mask >> 1) & 0x5555555555555555;
         mask = ((mask >> 2) & 0x3333333333333333) + (mask & 0x3333333333333333);
         mask = ((mask >> 4) + mask) & 0x0F0F0F0F0F0F0F0F;
-        return ((mask * 0x0101010101010101) >> 56) as uint
+        return ((mask * 0x0101010101010101) >> 56) as usize
     }
 
-    // Finds least significant bit set (LSB) in non-zero bitmask. Returns uint
+    // Finds least significant bit set (LSB) in non-zero bitmask. Returns usize
     // in 0..63 range.
-    pub fn first(&self) -> uint {
+    pub fn first(&self) -> usize {
         let mask = self.val();
-        DE_BRUIJN[(((mask ^ (mask - 1)) * 0x03F79D71B4CB0A89) >> 58) as uint]
+        DE_BRUIJN[(((mask ^ (mask - 1)) * 0x03F79D71B4CB0A89) >> 58) as usize]
     }
 
-    pub fn on(&self, offset: uint) -> bool {
+    pub fn on(&self, offset: usize) -> bool {
         return (self.val() & (1 << offset)) != 0
     }
 
-    pub fn off(&self, offset: uint) -> bool {
+    pub fn off(&self, offset: usize) -> bool {
         return !self.on(offset)
     }
 
     // Finds *and clears* least significant bit set (LSB) in non-zero bitmask.
-    // Returns uint in 0..63 range.
-    pub fn pop(&mut self) -> uint {
+    // Returns usize in 0..63 range.
+    pub fn pop(&mut self) -> usize {
         let mask = self.val();
         let magic = mask - 1;
         *self = Bitmask(mask & magic);
-        DE_BRUIJN[(((mask ^ magic) * 0x03F79D71B4CB0A89) >> 58) as uint]
+        DE_BRUIJN[(((mask ^ magic) * 0x03F79D71B4CB0A89) >> 58) as usize]
     }
 
     // Sets a bit at given offset.
-    pub fn set(&mut self, offset: uint) -> &mut Bitmask {
+    pub fn set(&mut self, offset: usize) -> &mut Bitmask {
         *self = Bitmask(self.val() | (1 << offset));
         self
     }
 
     // Clears a bit at given offset.
-    pub fn clear(&mut self, offset: uint) -> &mut Bitmask {
+    pub fn clear(&mut self, offset: usize) -> &mut Bitmask {
         *self = Bitmask(self.val() & ((1 << offset) ^ 0xFFFFFFFFFFFFFFFF));
         self
     }
@@ -110,9 +110,9 @@ impl fmt::Show for Bitmask {
     #[allow(unused_must_use)] // <-- To avoid try!(write!()) nonsense.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "  a b c d e f g h  0x{:016X}", self.val());
-        for row in range(0u, 8u).rev() {
+        for row in range(0us, 8us).rev() {
             write!(f, "\n{}", from_digit(row + 1, 10).unwrap());
-            for col in range(0u, 8u) {
+            for col in range(0us, 8us) {
                 write!(f, " ");
                 let offset = (row << 3) + col;
                 if self.on(offset) {
