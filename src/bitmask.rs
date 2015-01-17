@@ -1,6 +1,7 @@
 // Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
 
-use std::fmt;
+extern crate core;
+use self::core::fmt;
 use std::ops::{BitAnd, BitOr, BitXor, Shl, Shr};
 use std::char::{from_digit};
 
@@ -19,30 +20,40 @@ static DE_BRUIJN: [usize; 64] = [
 ];
 
 impl BitAnd<Bitmask> for Bitmask {
+    type Output = Bitmask;
+
     fn bitand(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 & rhs.0)
     }
 }
 
 impl BitOr<Bitmask> for Bitmask {
+    type Output = Bitmask;
+
     fn bitor(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 | rhs.0)
     }
 }
 
 impl BitXor<Bitmask> for Bitmask {
+    type Output = Bitmask;
+
     fn bitxor(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 ^ rhs.0)
     }
 }
 
 impl Shr<usize> for Bitmask {
+    type Output = Bitmask;
+
     fn shr(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 >> rhs)
     }
 }
 
 impl Shl<usize> for Bitmask {
+    type Output = Bitmask;
+
     fn shl(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 << rhs)
     }
@@ -107,7 +118,7 @@ impl Bitmask {
     }
 }
 
-impl fmt::Show for Bitmask {
+impl core::fmt::String for Bitmask {
     #[allow(unused_must_use)] // <-- To avoid try!(write!()) nonsense.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "  a b c d e f g h  0x{:016X}", self.val());
