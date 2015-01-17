@@ -1,9 +1,10 @@
 // Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
 
 use std::fmt;
+use std::ops::{BitAnd, BitOr, BitXor, Shl, Shr};
 use std::char::{from_digit};
 
-#[deriving(Eq, PartialEq, Copy)]
+#[derive(Eq, PartialEq, Copy)]
 pub struct Bitmask(pub u64); // <-- Newtype pattern.
 
 static DE_BRUIJN: [usize; 64] = [
@@ -17,31 +18,31 @@ static DE_BRUIJN: [usize; 64] = [
     13, 18,  8, 12,  7,  6,  5, 63
 ];
 
-impl BitAnd<Bitmask, Bitmask> for Bitmask {
+impl BitAnd<Bitmask> for Bitmask {
     fn bitand(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 & rhs.0)
     }
 }
 
-impl BitOr<Bitmask, Bitmask> for Bitmask {
+impl BitOr<Bitmask> for Bitmask {
     fn bitor(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 | rhs.0)
     }
 }
 
-impl BitXor<Bitmask, Bitmask> for Bitmask {
+impl BitXor<Bitmask> for Bitmask {
     fn bitxor(self, rhs: Bitmask) -> Bitmask {
         Bitmask(self.0 ^ rhs.0)
     }
 }
 
-impl Shr<usize, Bitmask> for Bitmask {
+impl Shr<usize> for Bitmask {
     fn shr(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 >> rhs)
     }
 }
 
-impl Shl<usize, Bitmask> for Bitmask {
+impl Shl<usize> for Bitmask {
     fn shl(self, rhs: usize) -> Bitmask {
         Bitmask(self.0 << rhs)
     }
