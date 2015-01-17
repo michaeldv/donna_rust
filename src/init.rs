@@ -7,9 +7,9 @@ use bitmask::Bitmask;
 use utils::{row, col, coordinate};
 
 // Distance between two squares.
-static mut _distance: [[usize; ..64]; ..64] = [[0; ..64]; ..64];
-static mut _king_moves: [Bitmask; ..64] = [Bitmask(0); ..64];
-static mut _knight_moves: [Bitmask; ..64] = [Bitmask(0); ..64];
+static mut _distance: [[usize; 64]; 64] = [[0; 64]; 64];
+static mut _king_moves: [Bitmask; 64] = [Bitmask(0); 64];
+static mut _knight_moves: [Bitmask; 64] = [Bitmask(0); 64];
 
 #[inline(always)]
 pub fn distance(from: usize, to: usize) -> usize {
