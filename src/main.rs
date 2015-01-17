@@ -23,7 +23,7 @@ fn main() {
     println!("{}.any() {}", zero, zero.any());
     println!("{}.empty() {}", nonzero, nonzero.empty());
     println!("{}.any() {}", nonzero, nonzero.any());
-    println!("move {}", moves::Move::new(1,2));
+    // println!("move {}", moves::Move::new(1,2)); // <-- Move needs core::fmt::String
 
     let a = bitmask::Bitmask(1);
     let b = bitmask::Bitmask(2);
