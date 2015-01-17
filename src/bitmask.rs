@@ -124,7 +124,7 @@ impl core::fmt::String for Bitmask {
         write!(f, "  a b c d e f g h  0x{:016X}", self.val());
         for row in range(0us, 8us).rev() {
             write!(f, "\n{}", from_digit(row + 1, 10).unwrap());
-            for col in range(0us, 8us) {
+            for col in 0us..8us {
                 write!(f, " ");
                 let offset = (row << 3) + col;
                 if self.on(offset) {

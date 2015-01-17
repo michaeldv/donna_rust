@@ -29,10 +29,10 @@ pub fn knight_moves(square: usize) -> Bitmask {
 pub fn init() {
 
     fn init_masks() {
-        for sq in range(0, 64) {
+        for sq in 0..64 {
             let (row, col) = coordinate(sq);
 
-            for i in range(0, 64) {
+            for i in 0..64 {
                 let (r, c) = coordinate(i);
                 let absrow = ((r - row) as isize).abs();
                 let abscol = ((c - col) as isize).abs();
