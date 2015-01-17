@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 by Michael Dvorkin. All Rights Reserved.
 
-#[deriving(Eq, PartialEq, Copy, Show)]
+#[derive(Eq, PartialEq, Copy)]
 pub struct Move(pub u32);
 
 // When trouble comes up anywhere in the world, they don't call Beijing, they
